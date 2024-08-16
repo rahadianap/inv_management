@@ -102,15 +102,20 @@ class ProductController extends Controller
         }
 
         return Inertia('Product/Show', [
-            'supplier' => new ProductResource($product),
+            'product' => new ProductResource($product),
             'queryParams' => request()->query() ?: null
         ]);
     }
     
     public function edit(Product $product)
     {
+        $subcategories = Subcategory::query()->orderBy('subcategory_name', 'asc')->get();
+        $suppliers = Supplier::query()->orderBy('supplier_name', 'asc')->get();
+
         return Inertia('Product/Edit', [
-            'supplier' => new ProductResource($product)
+            'product' => new ProductResource($product),
+            'subcategories' => SubcategoryResource::collection($subcategories),
+            'suppliers' => SupplierResource::collection($suppliers),
         ]);
     }
     
@@ -118,7 +123,22 @@ class ProductController extends Controller
     {
         DB::connection('sqlsrv')->beginTransaction();
         $product->update([
-            'product_name' => $request->product_name
+            'product_name' => $request->product_name,
+            'subcategory_id' => $request->subcategory_id,
+            'available_status' => $request->available_status,
+            'product_description' => $request->product_description,
+            'product_price' => $request->product_price,
+            'product_photos' => $request->product_photos,
+            'barcode' => $request->barcode,
+            'max_stock' => $request->max_stock,
+            'max_count' => $request->max_count,
+            'supplier_id' => $request->supplier_id,
+            'is_taxable' => $request->is_taxable,
+            'is_sold_by_weight' => $request->is_sold_by_weight,
+            'selling_time_id' => 'IDSLT202405230901596724',
+            'product_weight' => '{"unit": "per pack", "count": 1, "value": 1}',
+            'special_type' => null
+
         ]);
 
         $success = $product->save();

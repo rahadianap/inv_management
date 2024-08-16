@@ -28,7 +28,7 @@ export default function Edit({ auth, subcategory, categories }) {
                 </div>
             }
         >
-            <Head title="Categories" />
+            <Head title="Subcategories" />
             <div className="py-12">
                 <div className="w-1/2 mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
