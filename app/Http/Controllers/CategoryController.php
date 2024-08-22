@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\CategoryResource;
-use App\Http\Resources\SubcategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Resources\SubcategoryResource;
 use App\Http\Requests\UpdateCategoryRequest;
-use DB;
 
 class CategoryController extends Controller
 {    
     public function index()
     {
+        if(!Gate::allows('read role')) {
+            abort(403);
+        }
         $query = Category::query();
 
         $sortField = request('sort_field', 'created_at');

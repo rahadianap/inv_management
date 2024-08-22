@@ -4,6 +4,7 @@ import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 
 export default function Create({ auth, subcategories, suppliers }) {
     const { data, setData, post, errors, reset } = useForm({
@@ -34,8 +35,11 @@ export default function Create({ auth, subcategories, suppliers }) {
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                <div className="flex justify-start items-center">
+                    <Link href={route("products.index")}>
+                        <ChevronLeftIcon className="size-6 text-gray-800" />
+                    </Link>
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight ml-8">
                         Create New Product
                     </h2>
                 </div>

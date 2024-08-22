@@ -4,11 +4,12 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
-// use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubcategoryController;
 
 Route::redirect('/', '/dashboard');
@@ -20,7 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('subcategories', SubcategoryController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('products', ProductController::class);
-    // Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
 });
 
 Route::middleware('auth')->group(function () {

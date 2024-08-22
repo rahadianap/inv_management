@@ -1,12 +1,12 @@
 import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, usePage } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import TableHeader from "@/Components/TableHeader";
 
 export default function Index({
     auth,
-    categories,
+    permissions,
     queryParams = null,
     success,
 }) {
@@ -19,7 +19,7 @@ export default function Index({
             delete queryParams[name];
         }
 
-        router.get(route("categories.index"), queryParams);
+        router.get(route("permissions.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -40,14 +40,16 @@ export default function Index({
             queryParams.sort_order = "asc";
         }
 
-        router.get(route("categories.index"), queryParams);
+        router.get(route("permissions.index"), queryParams);
     };
 
-    const deleteCategory = (category) => {
-        if (!window.confirm("Are you sure you want to delete this category?")) {
+    const deleteSupplier = (permission) => {
+        if (
+            !window.confirm("Are you sure you want to delete this permission?")
+        ) {
             return;
         }
-        router.delete(route("categories.destroy", category.category_code));
+        router.delete(route("permissions.destroy", permission.name));
     };
 
     return (
@@ -56,24 +58,20 @@ export default function Index({
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Categories
+                        Permissions
                     </h2>
-                    {auth.user.roles
-                        ?.map((role) => role.name)
-                        .includes("user") || (
-                        <Link
-                            href={route("categories.create")}
-                            className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
-                        >
-                            Add New Categories
-                        </Link>
-                    )}
+                    <Link
+                        href={route("permissions.create")}
+                        className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
+                    >
+                        Add New Permissions
+                    </Link>
                 </div>
             }
         >
-            <Head title="Categories" />
+            <Head title="Permissions" />
             <div className="py-12">
-                <div className="w-full mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {success && (
                         <div className="bg-emerald-500 py-2 px-4 text-white rounded mb-4">
                             {success}
@@ -86,7 +84,7 @@ export default function Index({
                                     <thead className="text-base text-gray-900 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-900 border-b-2 border-gray-500">
                                         <tr className="text-nowrap">
                                             <TableHeader
-                                                name="category_code"
+                                                name="name"
                                                 sort_field={
                                                     queryParams.sort_field
                                                 }
@@ -95,19 +93,7 @@ export default function Index({
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Category Code
-                                            </TableHeader>
-                                            <TableHeader
-                                                name="category_name"
-                                                sort_field={
-                                                    queryParams.sort_field
-                                                }
-                                                sort_order={
-                                                    queryParams.sort_order
-                                                }
-                                                sortChanged={sortChanged}
-                                            >
-                                                Category Name
+                                                Permission Name
                                             </TableHeader>
                                             <TableHeader
                                                 name="created_at"
@@ -131,42 +117,18 @@ export default function Index({
                                             <th className="px-3 py-3">
                                                 <TextInput
                                                     className="w-full"
-                                                    placeholder="Category Code"
+                                                    placeholder="Permission Name"
                                                     defaultValue={
                                                         queryParams.name
                                                     }
                                                     onBlur={(e) =>
                                                         searchFieldChanged(
-                                                            "category_code",
+                                                            "name",
                                                             e.target.value
                                                         )
                                                     }
                                                     onKeyPress={(e) =>
-                                                        onKeyPress(
-                                                            "category_code",
-                                                            e
-                                                        )
-                                                    }
-                                                />
-                                            </th>
-                                            <th className="px-3 py-3">
-                                                <TextInput
-                                                    className="w-full"
-                                                    placeholder="Category Name"
-                                                    defaultValue={
-                                                        queryParams.category_name
-                                                    }
-                                                    onBlur={(e) =>
-                                                        searchFieldChanged(
-                                                            "category_name",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    onKeyPress={(e) =>
-                                                        onKeyPress(
-                                                            "category_name",
-                                                            e
-                                                        )
+                                                        onKeyPress("name", e)
                                                     }
                                                 />
                                             </th>
@@ -175,32 +137,29 @@ export default function Index({
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {categories.data.map((category) => (
+                                        {permissions.data.map((permission) => (
                                             <tr
                                                 className="text-base bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                                key={category.category_code}
+                                                key={permission.name}
                                             >
                                                 <td className="px-3 py-3 hover:underline text-gray-900">
                                                     <Link
                                                         href={route(
-                                                            "categories.show",
-                                                            category.category_code
+                                                            "permissions.show",
+                                                            permission.name
                                                         )}
                                                     >
-                                                        {category.category_code}
+                                                        {permission.name}
                                                     </Link>
                                                 </td>
                                                 <td className="px-3 py-3 text-gray-900">
-                                                    {category.category_name}
-                                                </td>
-                                                <td className="px-3 py-3 text-gray-900">
-                                                    {category.created_at}
+                                                    {permission.created_at}
                                                 </td>
                                                 <td className="px-3 py-3 text-right text-gray-900">
                                                     <Link
                                                         href={route(
-                                                            "categories.edit",
-                                                            category.category_code
+                                                            "permissions.edit",
+                                                            permission.name
                                                         )}
                                                         className="font-medium bg-yellow-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
                                                     >
@@ -208,8 +167,8 @@ export default function Index({
                                                     </Link>
                                                     <button
                                                         onClick={(e) =>
-                                                            deleteCategory(
-                                                                category
+                                                            deleteSupplier(
+                                                                permission
                                                             )
                                                         }
                                                         className="font-medium bg-red-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
@@ -222,7 +181,7 @@ export default function Index({
                                     </tbody>
                                 </table>
                             </div>
-                            <Pagination links={categories.meta.links} />
+                            <Pagination links={permissions.meta.links} />
                         </div>
                     </div>
                 </div>
