@@ -28,7 +28,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                                {/* <Dropdown>
+                                <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
@@ -74,7 +74,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                             Products
                                         </Dropdown.Link>
                                     </Dropdown.Content>
-                                </Dropdown> */}
+                                </Dropdown>
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
@@ -101,14 +101,19 @@ export default function AuthenticatedLayout({ user, header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link
+                                            href={route("permissions.index")}
+                                        >
+                                            Permissions
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
                                             href={route("roles.index")}
                                         >
                                             Roles
                                         </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route("permissions.index")}
+                                            href={route("users.index")}
                                         >
-                                            Permissions
+                                            Users
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>

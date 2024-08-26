@@ -11,6 +11,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\Auth\UserController;
 
 Route::redirect('/', '/dashboard');
 
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::resource('users', UserController::class);
 });
 
 Route::middleware('auth')->group(function () {

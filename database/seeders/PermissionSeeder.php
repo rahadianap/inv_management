@@ -12,19 +12,19 @@ class PermissionSeeder extends Seeder
     {
         try {
             Permission::create([
-                'name' => 'read role'
+                'name' => 'read'
             ]);
     
             Permission::create([
-                'name' => 'create role'
+                'name' => 'create'
             ]);
 
             Permission::create([
-                'name' => 'update role'
+                'name' => 'update'
             ]);
 
             Permission::create([
-                'name' => 'delete role'
+                'name' => 'delete'
             ]);
             
         } catch (\Throwable $th) {

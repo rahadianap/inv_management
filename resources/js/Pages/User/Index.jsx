@@ -5,7 +5,7 @@ import { Head, Link, router } from "@inertiajs/react";
 import { SUPPLIER_TYPE_TEXT_MAP, SUPPLIER_TYPE_CLASS_MAP } from "@/constants";
 import TableHeader from "@/Components/TableHeader";
 
-export default function Index({ auth, roles, queryParams = null, success }) {
+export default function Index({ auth, users, queryParams = null, success }) {
     queryParams = queryParams || {};
 
     const searchFieldChanged = (name, value) => {
@@ -15,7 +15,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
             delete queryParams[name];
         }
 
-        router.get(route("roles.index"), queryParams);
+        router.get(route("users.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -36,14 +36,14 @@ export default function Index({ auth, roles, queryParams = null, success }) {
             queryParams.sort_order = "asc";
         }
 
-        router.get(route("roles.index"), queryParams);
+        router.get(route("users.index"), queryParams);
     };
 
-    const deleteSupplier = (role) => {
-        if (!window.confirm("Are you sure you want to delete this role?")) {
+    const deleteSupplier = (user) => {
+        if (!window.confirm("Are you sure you want to delete this user?")) {
             return;
         }
-        router.delete(route("roles.destroy", role.name));
+        router.delete(route("users.destroy", user.name));
     };
 
     return (
@@ -52,22 +52,22 @@ export default function Index({ auth, roles, queryParams = null, success }) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Roles
+                        Users
                     </h2>
-                    {auth.user.roles
-                        ?.map((role) => role.name)
+                    {auth.user.users
+                        ?.map((user) => user.name)
                         .includes("user") || (
                             <Link
-                                href={route("roles.create")}
+                                href={route("users.create")}
                                 className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
                             >
-                                Add New Roles
+                                Add New Users
                             </Link>
                         )}
                 </div>
             }
         >
-            <Head title="Roles" />
+            <Head title="Users" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {success && (
@@ -91,7 +91,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Role Name
+                                                User Name
                                             </TableHeader>
                                             <TableHeader
                                                 name="created_at"
@@ -103,7 +103,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Created Date
+                                                Email
                                             </TableHeader>
                                             <th className="px-3 py-3 text-right">
                                                 ...
@@ -115,7 +115,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                             <th className="px-3 py-3">
                                                 <TextInput
                                                     className="w-full"
-                                                    placeholder="Role Name"
+                                                    placeholder="User Name"
                                                     defaultValue={
                                                         queryParams.name
                                                     }
@@ -135,32 +135,32 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {roles.data.map((role) => (
+                                        {users.data.map((user) => (
                                             <tr
                                                 className="text-base bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                                key={role.name}
+                                                key={user.name}
                                             >
                                                 <td className="px-3 py-3 hover:underline text-gray-900">
                                                     <Link
                                                         href={route(
-                                                            "roles.show",
-                                                            role.id
+                                                            "users.show",
+                                                            user.id
                                                         )}
                                                     >
-                                                        {role.name}
+                                                        {user.name}
                                                     </Link>
                                                 </td>
                                                 <td className="px-3 py-3 text-gray-900">
-                                                    {role.created_at}
+                                                    {user.email}
                                                 </td>
-                                                {auth.user.roles
-                                                    ?.map((role) => role.name)
+                                                {auth.user.users
+                                                    ?.map((user) => user.name)
                                                     .includes("superadmin") && (
                                                         <td className="px-3 py-3 text-right text-gray-900">
                                                             <Link
                                                                 href={route(
-                                                                    "roles.edit",
-                                                                    role.id
+                                                                    "users.edit",
+                                                                    user.id
                                                                 )}
                                                                 className="font-medium bg-yellow-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
                                                             >
@@ -168,7 +168,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                                             </Link>
                                                             <button
                                                                 onClick={(e) =>
-                                                                    deleteSupplier(role)
+                                                                    deleteSupplier(user)
                                                                 }
                                                                 className="font-medium bg-red-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
                                                             >
@@ -181,7 +181,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                     </tbody>
                                 </table>
                             </div>
-                            <Pagination links={roles.meta.links} />
+                            <Pagination links={users.meta.links} />
                         </div>
                     </div>
                 </div>

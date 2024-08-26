@@ -16,25 +16,25 @@ class RoleSeeder extends Seeder
                 'guard_name' => 'web'
             ]);
 
-            $superadmin->givePermissionTo('read role');
-            $superadmin->givePermissionTo('create role');
-            $superadmin->givePermissionTo('update role');
-            $superadmin->givePermissionTo('delete role');
+            $superadmin->givePermissionTo('read');
+            $superadmin->givePermissionTo('create');
+            $superadmin->givePermissionTo('update');
+            $superadmin->givePermissionTo('delete');
     
             $admin = Role::create([
                 'name' => 'admin',
                 'guard_name' => 'web'
             ]);
 
-            $admin->givePermissionTo('read role');
-            $admin->givePermissionTo('create role');
+            $admin->givePermissionTo('read');
+            $admin->givePermissionTo('create');
 
             $user = Role::create([
                 'name' => 'user',
                 'guard_name' => 'web'
             ]);
 
-            $user->givePermissionTo('read role');
+            $user->givePermissionTo('read');
             
         } catch (\Throwable $th) {
             return;
