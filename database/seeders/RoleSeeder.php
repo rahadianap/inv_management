@@ -28,6 +28,7 @@ class RoleSeeder extends Seeder
 
             $admin->givePermissionTo('read');
             $admin->givePermissionTo('create');
+            $admin->givePermissionTo('update');
 
             $user = Role::create([
                 'name' => 'user',
@@ -35,6 +36,7 @@ class RoleSeeder extends Seeder
             ]);
 
             $user->givePermissionTo('read');
+            $user->givePermissionTo('create');
             
         } catch (\Throwable $th) {
             return;

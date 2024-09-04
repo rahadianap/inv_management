@@ -57,18 +57,18 @@ export default function Index({ auth, products, queryParams = null, success }) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Products
+                        Barang
                     </h2>
                     <Link
                         href={route("products.create")}
                         className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
                     >
-                        Add New Products
+                        Add New Barang
                     </Link>
                 </div>
             }
         >
-            <Head title="Products" />
+            <Head title="Barang" />
             <div className="py-12">
                 <div className="w-full mx-auto sm:px-6 lg:px-8">
                     {success && (

@@ -43,7 +43,7 @@ export default function Create({ auth, product, subcategories, suppliers }) {
                 </div>
             }
         >
-            <Head title="Products" />
+            <Head title="Barang" />
             <div className="py-12">
                 <div className="w-full mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -253,7 +253,7 @@ export default function Create({ auth, product, subcategories, suppliers }) {
                                 />
                                 <InputLabel
                                     htmlFor="supplier_id"
-                                    value="Supplier Code"
+                                    value="Kode Supplier"
                                     className="mt-4"
                                 />
                                 <SelectInput

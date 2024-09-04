@@ -1,4 +1,4 @@
-import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/solid";
 
 export default function TableHeader({
     name,

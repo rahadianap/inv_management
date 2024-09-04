@@ -3,15 +3,15 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import { useForm } from "@inertiajs/react";
 
-export default function Show({ id, category }) {
+export default function Show({ id, unit }) {
     const {
         data: editData,
         setData: setEditData,
         errors,
         reset,
     } = useForm({
-        category_code: category.category_code,
-        category_name: category.category_name,
+        unit_code: unit.unit_code,
+        unit_name: unit.unit_name,
     });
 
     return (
@@ -19,12 +19,12 @@ export default function Show({ id, category }) {
             <button
                 onClick={() =>
                     document
-                        .getElementById(`view_modal${category.category_code}`)
+                        .getElementById(`view_modal${unit.unit_code}`)
                         .showModal()
                 }
                 className={`inline-flex items-center px-4 py-2 font-semibold text-sm text-gray-900 uppercase tracking-widest  focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 `}
             >
-                {category.category_code}
+                {unit.unit_code}
             </button>
             <dialog id={id} className="modal">
                 <div className="modal-box bg-slate-50">
@@ -40,52 +40,52 @@ export default function Show({ id, category }) {
                     </div>
                     <div className="modal-body">
                         <h3 className="font-bold text-lg mb-4">
-                            {category.category_name}
+                            {unit.unit_name}
                         </h3>
                         <div>
                             <InputLabel
-                                htmlFor="category_code"
-                                value="Kode Kategori"
+                                htmlFor="unit_code"
+                                value="Kode Satuan"
                             />
 
                             <TextInput
-                                id="category_code"
+                                id="unit_code"
                                 className="mt-1 block w-full mb-4"
-                                value={editData.category_code}
+                                value={editData.unit_code}
                                 onChange={(e) =>
-                                    setEditData("category_code", e.target.value)
+                                    setEditData("unit_code", e.target.value)
                                 }
                                 disabled
                                 isFocused
-                                autoComplete="category_code"
+                                autoComplete="unit_code"
                             />
 
                             <InputError
                                 className="mt-2 mb-4"
-                                message={errors.category_code}
+                                message={errors.unit_code}
                             />
                         </div>
                         <div>
                             <InputLabel
-                                htmlFor="category_name"
-                                value="Nama Kategori"
+                                htmlFor="unit_name"
+                                value="Nama Satuan"
                             />
 
                             <TextInput
-                                id="category_name"
+                                id="unit_name"
                                 className="mt-1 block w-full"
-                                value={editData.category_name}
+                                value={editData.unit_name}
                                 onChange={(e) =>
-                                    setEditData("category_name", e.target.value)
+                                    setEditData("unit_name", e.target.value)
                                 }
                                 disabled
                                 isFocused
-                                autoComplete="category_name"
+                                autoComplete="unit_name"
                             />
 
                             <InputError
                                 className="mt-2"
-                                message={errors.category_name}
+                                message={errors.unit_name}
                             />
                         </div>
                     </div>

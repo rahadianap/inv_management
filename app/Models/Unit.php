@@ -6,19 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class Unit extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $primaryKey = 'category_code';
+    protected $table = 'units';
+
+    protected $primaryKey = 'unit_code';
 
     public $incrementing = false;
 
     protected $keyType = 'string';
 
     protected $fillable = [
-        'category_code',
-        'category_name'
+        'unit_code',
+        'unit_name'
     ];
 
 }

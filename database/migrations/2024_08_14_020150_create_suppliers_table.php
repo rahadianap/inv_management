@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('supplier_phone');
             $table->integer('supplier_account_no');
             $table->enum('supplier_type', ['snack', 'buah', 'sayur', 'kue_basah']);
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->constrained('users');
 
             $table->primary('supplier_code');
         });

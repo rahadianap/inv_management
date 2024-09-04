@@ -54,16 +54,12 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Roles
                     </h2>
-                    {auth.user.roles
-                        ?.map((role) => role.name)
-                        .includes("user") || (
-                            <Link
-                                href={route("roles.create")}
-                                className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
-                            >
-                                Add New Roles
-                            </Link>
-                        )}
+                    <Link
+                        href={route("roles.create")}
+                        className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
+                    >
+                        Add New Roles
+                    </Link>
                 </div>
             }
         >
@@ -103,7 +99,7 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Created Date
+                                                Tanggal Dibuat
                                             </TableHeader>
                                             <th className="px-3 py-3 text-right">
                                                 ...
@@ -153,29 +149,25 @@ export default function Index({ auth, roles, queryParams = null, success }) {
                                                 <td className="px-3 py-3 text-gray-900">
                                                     {role.created_at}
                                                 </td>
-                                                {auth.user.roles
-                                                    ?.map((role) => role.name)
-                                                    .includes("superadmin") && (
-                                                        <td className="px-3 py-3 text-right text-gray-900">
-                                                            <Link
-                                                                href={route(
-                                                                    "roles.edit",
-                                                                    role.id
-                                                                )}
-                                                                className="font-medium bg-yellow-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
-                                                            >
-                                                                Edit
-                                                            </Link>
-                                                            <button
-                                                                onClick={(e) =>
-                                                                    deleteSupplier(role)
-                                                                }
-                                                                className="font-medium bg-red-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
-                                                            >
-                                                                Delete
-                                                            </button>
-                                                        </td>
-                                                    )}
+                                                <td className="px-3 py-3 text-right text-gray-900">
+                                                    <Link
+                                                        href={route(
+                                                            "roles.edit",
+                                                            role.id
+                                                        )}
+                                                        className="font-medium bg-yellow-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        onClick={(e) =>
+                                                            deleteSupplier(role)
+                                                        }
+                                                        className="font-medium bg-red-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>

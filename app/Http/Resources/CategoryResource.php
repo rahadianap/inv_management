@@ -14,7 +14,7 @@ class CategoryResource extends JsonResource
         return [
             "category_code" => $this->category_code,
             "category_name" => $this->category_name,
-            'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
+            'created_at' => (new Carbon($this->created_at))->format('Y-m-d H:i:s'),
             'createdBy' => new UserResource($this->createdBy),
             'updatedBy' => new UserResource($this->updatedBy),
         ];

@@ -15,6 +15,9 @@ class UpdateSupplierRequest extends FormRequest
     {
         return [
             "supplier_name" => ['required', 'max:255'],
+            "supplier_address" => ['max:255'],
+            "supplier_phone" => ['max:255'],
+            "supplier_type" => ['max:255'],
         ];
     }
 }

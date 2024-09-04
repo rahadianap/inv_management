@@ -11,9 +11,7 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        if(!Gate::allows('read role')) {
-            abort(403);
-        }
+        
         $query = Permission::query();
 
         $sortField = request('sort_field', 'created_at');

@@ -16,9 +16,9 @@ class SupplierResource extends JsonResource
             "supplier_name" => $this->supplier_name,
             "supplier_address" => $this->supplier_address,
             "supplier_phone" => $this->supplier_phone,
+            "supplier_account_no" => $this->supplier_account_no,
             "supplier_type" => $this->supplier_type,
-            // "supplier_account_no" => $this->supplier_account_no,
-            'created_at' => (new Carbon($this->created_at))->format('Y-m-d'),
+            'created_at' => (new Carbon($this->created_at))->format('Y-m-d H:i:s'),
             'createdBy' => new UserResource($this->createdBy),
             'updatedBy' => new UserResource($this->updatedBy),
         ];

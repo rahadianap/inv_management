@@ -4,17 +4,17 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateCategoryRequest extends FormRequest
+class StoreUnitRequest extends FormRequest
 {
     public function authorize(): bool
     {
         return true;
     }
-    
+
     public function rules(): array
     {
         return [
-            "category_name" => ['required', 'max:255'],
+            "unit_name" => ['required', 'max:255'],
         ];
     }
 }

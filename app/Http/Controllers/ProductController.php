@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Product;
 use App\Models\Supplier;
-use App\Models\Subcategory;
+use App\Models\Category;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SupplierResource;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Resources\SubcategoryResource;
+use App\Http\Resources\CategoryResource;
 
 class ProductController extends Controller
 {
@@ -44,11 +44,11 @@ class ProductController extends Controller
     
     public function create()
     {
-        $subcategories = Subcategory::all();
+        $categories = Category::all();
         $suppliers = Supplier::all();
 
         return Inertia('Product/Create', [
-            'subcategories' => SubcategoryResource::collection($subcategories),
+            'categories' => CategoryResource::collection($categories),
             'suppliers' => SupplierResource::collection($suppliers)
         ]);
     }
@@ -114,7 +114,7 @@ class ProductController extends Controller
 
         return Inertia('Product/Edit', [
             'product' => new ProductResource($product),
-            'subcategories' => SubcategoryResource::collection($subcategories),
+            'subcategories' => CategoryResource::collection($subcategories),
             'suppliers' => SupplierResource::collection($suppliers),
         ]);
     }

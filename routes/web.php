@@ -3,24 +3,23 @@
 // use App\Http\Controllers\DashboardController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Application;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Auth\UserController;
 
 Route::redirect('/', '/dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
 
     Route::resource('categories', CategoryController::class);
-    Route::resource('subcategories', SubcategoryController::class);
     Route::resource('suppliers', SupplierController::class);
+    Route::resource('units', UnitController::class);
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);

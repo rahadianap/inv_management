@@ -8,7 +8,7 @@ import Edit from "./Edit";
 import Show from "./Show";
 import Delete from "./Delete";
 
-export default function Index({ auth, categories, queryParams = null }) {
+export default function Index({ auth, units, queryParams = null }) {
     queryParams = queryParams || {};
 
     const searchFieldChanged = (name, value) => {
@@ -18,7 +18,7 @@ export default function Index({ auth, categories, queryParams = null }) {
             delete queryParams[name];
         }
 
-        router.get(route("categories.index"), queryParams);
+        router.get(route("units.index"), queryParams);
     };
 
     const onKeyPress = (name, e) => {
@@ -39,7 +39,7 @@ export default function Index({ auth, categories, queryParams = null }) {
             queryParams.sort_order = "asc";
         }
 
-        router.get(route("categories.index"), queryParams);
+        router.get(route("units.index"), queryParams);
     };
 
     return (
@@ -48,12 +48,12 @@ export default function Index({ auth, categories, queryParams = null }) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Kategori Barang
+                        Satuan Barang
                     </h2>
                 </div>
             }
         >
-            <Head title="Kategori Barang" />
+            <Head title="Satuan Barang" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -66,7 +66,7 @@ export default function Index({ auth, categories, queryParams = null }) {
                                     <thead className="text-base text-gray-900 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-900 border-b-2 border-gray-500">
                                         <tr className="text-nowrap">
                                             <TableHeader
-                                                name="category_code"
+                                                name="unit_code"
                                                 sort_field={
                                                     queryParams.sort_field
                                                 }
@@ -75,10 +75,10 @@ export default function Index({ auth, categories, queryParams = null }) {
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Kode Kategori
+                                                Kode Satuan
                                             </TableHeader>
                                             <TableHeader
-                                                name="category_name"
+                                                name="unit_name"
                                                 sort_field={
                                                     queryParams.sort_field
                                                 }
@@ -87,7 +87,7 @@ export default function Index({ auth, categories, queryParams = null }) {
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Nama Kategori
+                                                Nama Satuan
                                             </TableHeader>
                                             <TableHeader
                                                 name="created_at"
@@ -111,19 +111,19 @@ export default function Index({ auth, categories, queryParams = null }) {
                                             <th className="px-3 py-3">
                                                 <TextInput
                                                     className="w-full"
-                                                    placeholder="Kode Kategori"
+                                                    placeholder="Kode Satuan"
                                                     defaultValue={
                                                         queryParams.name
                                                     }
                                                     onBlur={(e) =>
                                                         searchFieldChanged(
-                                                            "category_code",
+                                                            "unit_code",
                                                             e.target.value
                                                         )
                                                     }
                                                     onKeyPress={(e) =>
                                                         onKeyPress(
-                                                            "category_code",
+                                                            "unit_code",
                                                             e
                                                         )
                                                     }
@@ -132,19 +132,19 @@ export default function Index({ auth, categories, queryParams = null }) {
                                             <th className="px-3 py-3">
                                                 <TextInput
                                                     className="w-full"
-                                                    placeholder="Nama Kategori"
+                                                    placeholder="Nama Satuan"
                                                     defaultValue={
-                                                        queryParams.category_name
+                                                        queryParams.unit_name
                                                     }
                                                     onBlur={(e) =>
                                                         searchFieldChanged(
-                                                            "category_name",
+                                                            "unit_name",
                                                             e.target.value
                                                         )
                                                     }
                                                     onKeyPress={(e) =>
                                                         onKeyPress(
-                                                            "category_name",
+                                                            "unit_name",
                                                             e
                                                         )
                                                     }
@@ -155,33 +155,33 @@ export default function Index({ auth, categories, queryParams = null }) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {categories.data.map((category) => (
+                                        {units.data.map((unit) => (
                                             <tr
                                                 className="text-base bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-                                                key={category.category_code}
+                                                key={unit.unit_code}
                                             >
                                                 <td className="px-3 py-3 hover:underline text-gray-900">
                                                     <Show
-                                                        id={`view_modal${category.category_code}`}
-                                                        category={category}
+                                                        id={`view_modal${unit.unit_code}`}
+                                                        unit={unit}
                                                     >
-                                                        {category.category_code}
+                                                        {unit.unit_code}
                                                     </Show>
                                                 </td>
                                                 <td className="px-3 py-3 text-gray-900">
-                                                    {category.category_name}
+                                                    {unit.unit_name}
                                                 </td>
                                                 <td className="px-3 py-3 text-gray-900">
-                                                    {category.created_at}
+                                                    {unit.created_at}
                                                 </td>
                                                 <td className="flex px-3 py-3 text-right text-gray-900 gap-x-6 justify-end">
                                                     <Edit
-                                                        id={`edit_modal${category.category_code}`}
-                                                        category={category}
+                                                        id={`edit_modal${unit.unit_code}`}
+                                                        unit={unit}
                                                     />
                                                     <Delete
-                                                        id={`delete_modal${category.category_code}`}
-                                                        category={category}
+                                                        id={`delete_modal${unit.unit_code}`}
+                                                        unit={unit}
                                                     />
                                                 </td>
                                             </tr>
@@ -189,7 +189,7 @@ export default function Index({ auth, categories, queryParams = null }) {
                                     </tbody>
                                 </table>
                             </div>
-                            <Pagination links={categories.meta.links} />
+                            <Pagination links={units.meta.links} />
                         </div>
                     </div>
                 </div>

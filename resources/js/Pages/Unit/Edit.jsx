@@ -6,7 +6,7 @@ import { router } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Edit({ id, category }) {
+export default function Edit({ id, unit }) {
     const {
         data: editData,
         setData: setEditData,
@@ -14,15 +14,15 @@ export default function Edit({ id, category }) {
         processing,
         reset,
     } = useForm({
-        category_code: category.category_code,
-        category_name: category.category_name,
+        unit_code: unit.unit_code,
+        unit_name: unit.unit_name,
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         router.post(
-            route("categories.update", category.category_code),
+            route("units.update", unit.unit_code),
             {
                 _method: "put",
                 ...editData,
@@ -31,7 +31,7 @@ export default function Edit({ id, category }) {
                 onSuccess: () => {
                     const dialog = document.getElementById(id);
                     dialog.close();
-                    toast.success("Data Kategori berhasil diubah!", {
+                    toast.success("Data Satuan berhasil diubah!", {
                         position: "top-center",
                     });
                 },
@@ -44,7 +44,7 @@ export default function Edit({ id, category }) {
             <button
                 onClick={() =>
                     document
-                        .getElementById(`edit_modal${category.category_code}`)
+                        .getElementById(`edit_modal${unit.unit_code}`)
                         .showModal()
                 }
                 className={`inline-flex items-center px-4 py-2 bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-600 active:bg-yellow-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest  focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 `}
@@ -74,28 +74,25 @@ export default function Edit({ id, category }) {
                             <div>
                                 <InputLabel
                                     className="text-left"
-                                    htmlFor="category_name"
-                                    value="Nama Kategori"
+                                    htmlFor="unit_name"
+                                    value="Nama Satuan"
                                 />
 
                                 <TextInput
-                                    id="category_name"
+                                    id="unit_name"
                                     className="mt-1 block w-full"
-                                    value={editData.category_name}
+                                    value={editData.unit_name}
                                     onChange={(e) =>
-                                        setEditData(
-                                            "category_name",
-                                            e.target.value
-                                        )
+                                        setEditData("unit_name", e.target.value)
                                     }
                                     required
                                     isFocused
-                                    autoComplete="category_name"
+                                    autoComplete="unit_name"
                                 />
 
                                 <InputError
                                     className="mt-2"
-                                    message={errors.category_name}
+                                    message={errors.unit_name}
                                 />
                             </div>
                             <button

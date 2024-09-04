@@ -2,120 +2,198 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import SelectInput from "@/Components/SelectInput";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm, Link } from "@inertiajs/react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
-export default function Edit({ auth, supplier }) {
-    const { setData, post, errors } = useForm({
-        supplier_name: supplier.data.supplier_code || "",
-        _method: "PUT",
+export default function Edit({ id, supplier }) {
+    const {
+        data: editData,
+        setData: setEditData,
+        errors,
+        processing,
+        reset,
+    } = useForm({
+        supplier_code: supplier.supplier_code,
+        supplier_name: supplier.supplier_name,
+        supplier_address: supplier.supplier_address,
+        supplier_phone: supplier.supplier_phone,
+        supplier_account_no: supplier.supplier_account_no,
+        supplier_type: supplier.supplier_type,
     });
 
-    const onSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        post(route("suppliers.update", supplier.data.supplier_code));
+        router.post(
+            route("suppliers.update", supplier.supplier_code),
+            {
+                _method: "put",
+                ...editData,
+            },
+            {
+                onSuccess: () => {
+                    const dialog = document.getElementById(id);
+                    dialog.close();
+                    toast.success("Data Supplier berhasil diubah!", {
+                        position: "top-center",
+                    });
+                },
+            }
+        );
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <div className="flex justify-between items-center">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Update Supplier
-                    </h2>
-                </div>
-            }
-        >
-            <Head title="Categories" />
-            <div className="py-12">
-                <div className="w-1/2 mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <>
+            <button
+                onClick={() =>
+                    document
+                        .getElementById(`edit_modal${supplier.supplier_code}`)
+                        .showModal()
+                }
+                className={`inline-flex items-center px-4 py-2 bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-600 active:bg-yellow-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest  focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 `}
+            >
+                Edit
+            </button>
+            <dialog id={id} className="modal">
+                <div className="modal-box bg-slate-50">
+                    <div className="modal-header">
+                        <form method="dialog">
+                            <button
+                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                                onClick={() => reset()}
+                            >
+                                ✕
+                            </button>
+                        </form>
+                    </div>
+                    <div className="modal-body">
+                        <h3 className="font-bold text-lg text-left">
+                            Edit Data
+                        </h3>
                         <form
-                            onSubmit={onSubmit}
-                            className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                            onSubmit={handleSubmit}
+                            className="mt-6 space-y-6"
                         >
                             <div>
                                 <InputLabel
+                                    className="mt-4 text-left"
                                     htmlFor="supplier_name"
-                                    value="Supplier Name"
+                                    value="Nama Supplier"
                                 />
+
                                 <TextInput
                                     id="supplier_name"
-                                    type="text"
-                                    name="supplier_name"
-                                    defaultValue={supplier.data.supplier_name}
-                                    className="mt-1 block w-full"
-                                    isFocused={true}
+                                    className="mt-1 block w-full text-gray-900"
+                                    value={editData.supplier_name}
                                     onChange={(e) =>
-                                        setData("supplier_name", e.target.value)
+                                        setEditData(
+                                            "supplier_name",
+                                            e.target.value
+                                        )
                                     }
+                                    required
+                                    isFocused
+                                    autoComplete="supplier_name"
                                 />
+
                                 <InputError
-                                    message={errors.supplier_name}
                                     className="mt-2"
+                                    message={errors.supplier_name}
                                 />
                                 <InputLabel
+                                    className="mt-4 text-left"
                                     htmlFor="supplier_address"
-                                    value="Supplier Address"
-                                    className="mt-4"
+                                    value="Alamat Supplier"
                                 />
+
                                 <TextInput
                                     id="supplier_address"
-                                    type="text"
-                                    name="supplier_address"
-                                    defaultValue={
-                                        supplier.data.supplier_address
-                                    }
-                                    className="mt-1 block w-full"
-                                    isFocused={true}
+                                    className="mt-1 block w-full text-gray-900"
+                                    value={editData.supplier_address}
                                     onChange={(e) =>
-                                        setData(
+                                        setEditData(
                                             "supplier_address",
                                             e.target.value
                                         )
                                     }
+                                    required
+                                    isFocused
+                                    autoComplete="supplier_address"
                                 />
+
                                 <InputError
-                                    message={errors.supplier_address}
                                     className="mt-2"
+                                    message={errors.supplier_address}
                                 />
                                 <InputLabel
+                                    className="mt-4 text-left"
                                     htmlFor="supplier_phone"
-                                    value="Supplier Phone"
-                                    className="mt-4"
+                                    value="Nomor Telepon"
                                 />
+
                                 <TextInput
                                     id="supplier_phone"
-                                    type="text"
-                                    name="supplier_phone"
-                                    defaultValue={supplier.data.supplier_phone}
-                                    className="mt-1 block w-full"
-                                    isFocused={true}
+                                    type="tel"
+                                    className="mt-1 block w-full text-gray-900"
+                                    value={editData.supplier_phone}
                                     onChange={(e) =>
-                                        setData(
+                                        setEditData(
                                             "supplier_phone",
                                             e.target.value
                                         )
                                     }
+                                    required
+                                    isFocused
+                                    autoComplete="supplier_phone"
                                 />
+
                                 <InputError
-                                    message={errors.supplier_phone}
                                     className="mt-2"
+                                    message={errors.supplier_phone}
                                 />
                                 <InputLabel
+                                    className="mt-4 text-left"
+                                    htmlFor="supplier_account_no"
+                                    value="Nomor Rekening"
+                                />
+
+                                <TextInput
+                                    id="supplier_account_no"
+                                    type="number"
+                                    className="mt-1 block w-full text-gray-900"
+                                    value={editData.supplier_account_no}
+                                    onChange={(e) =>
+                                        setEditData(
+                                            "supplier_account_no",
+                                            e.target.value
+                                        )
+                                    }
+                                    required
+                                    isFocused
+                                    autoComplete="supplier_account_no"
+                                />
+
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.supplier_account_no}
+                                />
+                                <InputLabel
+                                    className="mt-4 text-left"
                                     htmlFor="supplier_type"
-                                    value="Supplier Type"
-                                    className="mt-4"
+                                    value="Tipe Supplier"
                                 />
                                 <SelectInput
                                     id="supplier_type"
                                     name="supplier_type"
-                                    value={supplier.data.supplier_type}
                                     className="mt-1 block w-full"
+                                    value={editData.supplier_type}
                                     onChange={(e) =>
-                                        setData("supplier_type", e.target.value)
+                                        setEditData(
+                                            "supplier_type",
+                                            e.target.value
+                                        )
                                     }
                                 >
                                     <option value="">Select Type</option>
@@ -129,21 +207,19 @@ export default function Edit({ auth, supplier }) {
                                     className="mt-2"
                                 />
                             </div>
-                            <div className="mt-6 text-right">
-                                <Link
-                                    href={route("suppliers.index")}
-                                    className="bg-gray-200 py-1 px-3 text-gray-900 rounded shadow transition-all hover:bg-gray-400 mr-4"
-                                >
-                                    Cancel
-                                </Link>
-                                <button className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700">
-                                    Submit
-                                </button>
-                            </div>
+                            <button
+                                className={`w-full text-center items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-500 focus:bg-yellow-600 active:bg-yellow-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest  focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150`}
+                                disabled={processing}
+                            >
+                                Confirm Update
+                            </button>
                         </form>
                     </div>
                 </div>
-            </div>
-        </AuthenticatedLayout>
+                <form method="dialog" className="modal-backdrop">
+                    <button onClick={() => reset()}></button>
+                </form>
+            </dialog>
+        </>
     );
 }

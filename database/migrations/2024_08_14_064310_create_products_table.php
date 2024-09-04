@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->string('product_code');
             $table->string('product_name');
-            $table->string('subcategory_id');
+            $table->string('category_id');
             $table->string('available_status');
             $table->string('product_description');
             $table->string('product_price');
@@ -28,12 +28,12 @@ return new class extends Migration
             $table->boolean('is_sold_by_weight')->default(false);
             $table->string('selling_time_id');
             $table->string('supplier_id');
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('subcategory_id')->references('subcategory_code')->on('subcategories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('category_code')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('supplier_id')->references('supplier_code')->on('suppliers')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->constrained('users');
 
             $table->primary('product_code');
         });

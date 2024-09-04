@@ -56,22 +56,22 @@ export default function AuthenticatedLayout({ user, header, children }) {
                                         <Dropdown.Link
                                             href={route("categories.index")}
                                         >
-                                            Categories
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("subcategories.index")}
-                                        >
-                                            Subcategories
+                                            Kategori Barang
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("suppliers.index")}
                                         >
-                                            Suppliers
+                                            Supplier
+                                        </Dropdown.Link>
+                                        <Dropdown.Link
+                                            href={route("units.index")}
+                                        >
+                                            Satuan Barang
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route("products.index")}
                                         >
-                                            Products
+                                            Barang
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>

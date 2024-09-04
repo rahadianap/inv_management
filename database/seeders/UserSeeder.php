@@ -11,29 +11,29 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         try {
-            $superadmin = User::create([
+            $user1 = User::create([
                 'name' => 'superadmin',
                 'email' => 'superadmin@mail.com',
                 'password' => bcrypt('12345678'),
             ]);
     
-            $superadmin->assignRole('superadmin');
+            $user1->assignRole('superadmin');
 
-            $admin = User::create([
-                'name' => 'admin',
-                'email' => 'admin@mail.com',
+            $user2 = User::create([
+                'name' => 'budijaya',
+                'email' => 'budijaya@mail.com',
                 'password' => bcrypt('12345678'),
             ]);
     
-            $admin->assignRole('admin');
+            $user2->assignRole('admin');
     
-            $user = User::create([
-                'name' => 'user',
-                'email' => 'user@mail.com',
+            $user3 = User::create([
+                'name' => 'aliala',
+                'email' => 'aliala@mail.com',
                 'password' => bcrypt('12345678'),
             ]);
     
-            $user->assignRole('user');
+            $user3->assignRole('user');
             
         } catch (\Throwable $th) {
             return;

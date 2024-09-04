@@ -6,10 +6,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, Link } from "@inertiajs/react";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 
-export default function Create({ auth, subcategories, suppliers }) {
+export default function Create({ auth, categories, suppliers }) {
     const { data, setData, post, errors, reset } = useForm({
         product_name: "",
-        subcategory_id: "",
+        category_id: "",
         available_status: "",
         product_description: "",
         product_price: "",
@@ -45,9 +45,9 @@ export default function Create({ auth, subcategories, suppliers }) {
                 </div>
             }
         >
-            <Head title="Products" />
+            <Head title="Barang" />
             <div className="py-12">
-                <div className="w-full mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <form
                             onSubmit={onSubmit}
@@ -74,33 +74,30 @@ export default function Create({ auth, subcategories, suppliers }) {
                                     className="mt-2"
                                 />
                                 <InputLabel
-                                    htmlFor="subcategory_id"
-                                    value="Subcategory Code"
+                                    htmlFor="category_id"
+                                    value="Kode Kategori"
                                     className="mt-4"
                                 />
                                 <SelectInput
-                                    id="subcategory_id"
-                                    name="subcategory_id"
+                                    id="category_id"
+                                    name="category_id"
                                     className="mt-1 block w-full"
                                     onChange={(e) =>
-                                        setData(
-                                            "subcategory_id",
-                                            e.target.value
-                                        )
+                                        setData("category_id", e.target.value)
                                     }
                                 >
                                     <option value="">Select Category</option>
-                                    {subcategories.data.map((subcategory) => (
+                                    {categories.data.map((category) => (
                                         <option
-                                            value={subcategory.subcategory_code}
-                                            key={subcategory.subcategory_code}
+                                            value={category.category_code}
+                                            key={category.category_code}
                                         >
-                                            {subcategory.subcategory_name}
+                                            {category.category_name}
                                         </option>
                                     ))}
                                 </SelectInput>
                                 <InputError
-                                    message={errors.subcategory_id}
+                                    message={errors.category_id}
                                     className="mt-2"
                                 />
                                 <InputLabel
@@ -284,7 +281,7 @@ export default function Create({ auth, subcategories, suppliers }) {
                                 />
                                 <InputLabel
                                     htmlFor="supplier_id"
-                                    value="Supplier Code"
+                                    value="Kode Supplier"
                                     className="mt-4"
                                 />
                                 <SelectInput

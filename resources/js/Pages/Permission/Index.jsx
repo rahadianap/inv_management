@@ -60,12 +60,14 @@ export default function Index({
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Permissions
                     </h2>
-                    <Link
-                        href={route("permissions.create")}
-                        className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
-                    >
-                        Add New Permissions
-                    </Link>
+                    {auth.user.role === "1" && (
+                        <Link
+                            href={route("permissions.create")}
+                            className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
+                        >
+                            Add New Permissions
+                        </Link>
+                    )}
                 </div>
             }
         >
@@ -105,7 +107,7 @@ export default function Index({
                                                 }
                                                 sortChanged={sortChanged}
                                             >
-                                                Created Date
+                                                Tanggal Dibuat
                                             </TableHeader>
                                             <th className="px-3 py-3 text-right">
                                                 ...

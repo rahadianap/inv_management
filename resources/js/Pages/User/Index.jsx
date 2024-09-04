@@ -2,7 +2,6 @@ import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
-import { SUPPLIER_TYPE_TEXT_MAP, SUPPLIER_TYPE_CLASS_MAP } from "@/constants";
 import TableHeader from "@/Components/TableHeader";
 
 export default function Index({ auth, users, queryParams = null, success }) {
@@ -54,16 +53,12 @@ export default function Index({ auth, users, queryParams = null, success }) {
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                         Users
                     </h2>
-                    {auth.user.users
-                        ?.map((user) => user.name)
-                        .includes("user") || (
-                            <Link
-                                href={route("users.create")}
-                                className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
-                            >
-                                Add New Users
-                            </Link>
-                        )}
+                    <Link
+                        href={route("users.create")}
+                        className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all hover:bg-emerald-700"
+                    >
+                        Add New Users
+                    </Link>
                 </div>
             }
         >
@@ -153,29 +148,25 @@ export default function Index({ auth, users, queryParams = null, success }) {
                                                 <td className="px-3 py-3 text-gray-900">
                                                     {user.email}
                                                 </td>
-                                                {auth.user.users
-                                                    ?.map((user) => user.name)
-                                                    .includes("superadmin") && (
-                                                        <td className="px-3 py-3 text-right text-gray-900">
-                                                            <Link
-                                                                href={route(
-                                                                    "users.edit",
-                                                                    user.id
-                                                                )}
-                                                                className="font-medium bg-yellow-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
-                                                            >
-                                                                Edit
-                                                            </Link>
-                                                            <button
-                                                                onClick={(e) =>
-                                                                    deleteSupplier(user)
-                                                                }
-                                                                className="font-medium bg-red-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
-                                                            >
-                                                                Delete
-                                                            </button>
-                                                        </td>
-                                                    )}
+                                                <td className="px-3 py-3 text-right text-gray-900">
+                                                    <Link
+                                                        href={route(
+                                                            "users.edit",
+                                                            user.id
+                                                        )}
+                                                        className="font-medium bg-yellow-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        onClick={(e) =>
+                                                            deleteSupplier(user)
+                                                        }
+                                                        className="font-medium bg-red-500 text-white rounded px-1 py-1 dark:text-white hover:underline mx-1"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>

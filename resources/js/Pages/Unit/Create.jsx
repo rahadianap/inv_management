@@ -8,17 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Create({ className = "", disabled }) {
     const { data, setData, reset, errors, processing } = useForm({
-        category_name: "",
+        unit_name: "",
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        router.post(route("categories.store"), data, {
+        router.post(route("units.store"), data, {
             onSuccess: () => {
                 const dialog = document.getElementById("create_modal");
                 dialog.close();
-                toast.success("Kategori baru berhasil dibuat!", {
+                toast.success("Satuan baru berhasil dibuat!", {
                     position: "top-center",
                 });
             },
@@ -39,7 +39,7 @@ export default function Create({ className = "", disabled }) {
                 }
                 disabled={disabled}
             >
-                Tambah Kategori
+                Tambah Satuan
             </button>
 
             <dialog id="create_modal" className="modal">
@@ -56,35 +56,31 @@ export default function Create({ className = "", disabled }) {
                     </div>
                     <div className="modal-body">
                         <h3 className="font-bold text-lg text-gray-900">
-                            Tambah Kategori Baru
+                            Tambah Satuan Baru
                         </h3>
                         <form onSubmit={submit} className="mt-6 space-y-6">
                             <div>
                                 <InputLabel
-                                    htmlFor="category_name"
-                                    value="Nama Kategori *"
+                                    htmlFor="unit_name"
+                                    value="Nama Satuan"
                                 />
 
                                 <TextInput
-                                    id="category_name"
+                                    id="unit_name"
                                     className="mt-1 block w-full text-gray-900"
-                                    value={data.category_name}
+                                    value={data.unit_name}
                                     onChange={(e) =>
-                                        setData("category_name", e.target.value)
+                                        setData("unit_name", e.target.value)
                                     }
                                     required
                                     isFocused
-                                    autoComplete="category_name"
+                                    autoComplete="unit_name"
                                 />
 
                                 <InputError
                                     className="mt-2"
-                                    message={errors.category_name}
+                                    message={errors.unit_name}
                                 />
-                            </div>
-
-                            <div className="mt-4">
-                                <small className="italic">* Wajib diisi</small>
                             </div>
 
                             <button
@@ -93,7 +89,7 @@ export default function Create({ className = "", disabled }) {
                                 } `}
                                 disabled={processing}
                             >
-                                Tambah Kategori Baru
+                                Tambah Satuan Baru
                             </button>
                         </form>
                     </div>

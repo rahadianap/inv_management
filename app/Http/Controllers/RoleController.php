@@ -14,9 +14,7 @@ class RoleController extends Controller
 {
     public function index(Role $role)
     {
-        if(!Gate::allows('read role')) {
-            abort(403);
-        }
+        
         $query = Role::query();
 
         $sortField = request('sort_field', 'created_at');

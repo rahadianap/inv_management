@@ -10,16 +10,16 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->string('category_code');
-            $table->string('category_name');
+        Schema::create('units', function (Blueprint $table) {
+            $table->string('unit_code');
+            $table->string('unit_name');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary('category_code');
+            $table->primary('unit_code');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('units');
     }
 };
